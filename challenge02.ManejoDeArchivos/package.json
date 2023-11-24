@@ -1,0 +1,12 @@
+{
+  "name": "challenge02.manejodearchivos",
+  "version": "1.0.0",
+  "description": "Comision 50000 - challenge02",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tomas Marsico",
+  "license": "ISC"
+}
