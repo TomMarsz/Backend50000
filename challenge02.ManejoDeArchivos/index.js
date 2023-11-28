@@ -94,6 +94,10 @@ class ProductManager {
   async deleteProductById(productId) {
     try {
       const products = await this.getProducts()
+      const productIndex = products.findIndex((p) => p.id === productId);
+      if (productIndex === -1) {
+        throw new Error(`Product with ID ${productId} not found`);
+      }
       const productsFilt = products.filter((p) => p.id !== productId);
       await fs.writeFile(`./${this.path}`, JSON.stringify(productsFilt, null, 2));
       console.log(`Product with Id: ${productId} is deleted`);
@@ -107,8 +111,8 @@ class ProductManager {
 const productManager = new ProductManager('products.json');
 
 
-console.log(await productManager.getProducts());
+// console.log(await productManager.getProducts());
 // console.log(await productManager.getProductById(3));
-// console.log(await productManager.deleteProductById(2));;
+console.log(await productManager.deleteProductById(2));
 // productManager.addProduct({ title: "Peugeot", description: "Peugeot", price: 7000, stock: 10, thumbnail: ["https://yt3.ggpht.com/ytc/AMLnZu9VHYpPZl_WboTCenxYZtchOdCvzgy53zvLsOGYig=s88-c-k-c0x00ffffff-no-rj"] });
 // console.log(await productManager.updateProductById(3, { title: "Peugeot", description: "Peugeot", price: 7000, stock: 10, thumbnail: ["https://yt3.ggpht.com/ytc/AMLnZu9VHYpPZl_WboTCenxYZtchOdCvzgy53zvLsOGYig=s88-c-k-c0x00ffffff-no-rj"] }));
