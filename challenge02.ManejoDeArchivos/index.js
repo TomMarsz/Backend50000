@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs';
+import { randomUUID } from 'crypto';
 
 class ProductManager {
   constructor(path) {
@@ -13,16 +14,6 @@ class ProductManager {
       console.log(error);
       throw new Error(`Error reading products: ${error.message}`);
     }
-  }
-
-  generateAlphanumericCode(length) {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let code = '';
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      code += characters.charAt(randomIndex);
-    }
-    return code;
   }
 
   validateProductData(productData) {
@@ -49,7 +40,7 @@ class ProductManager {
       this.validateProductData(productData)
       const products = await this.getProducts()
       const id = products.length + 1;
-      const code = this.generateAlphanumericCode(6);
+      const code = randomUUID();
       const newProduct = { id, code, ...productData };
       products.push(newProduct);
       await fs.writeFile(`./${this.path}`, JSON.stringify(products, null, 2));
@@ -64,7 +55,7 @@ class ProductManager {
     try {
       const products = await this.getProducts()
       const foundProduct = products.find((p) => p.id === productId);
-      return foundProduct ? [foundProduct] : []
+      return foundProduct ? [foundProduct] : console.log('Product not found.');
     } catch (error) {
       throw new Error(`Error getting product by ID: ${error.message}`);
     }
@@ -112,7 +103,7 @@ const productManager = new ProductManager('products.json');
 
 
 // console.log(await productManager.getProducts());
-// console.log(await productManager.getProductById(3));
-console.log(await productManager.deleteProductById(2));
+// console.log(await productManager.getProductById(11));
+// console.log(await productManager.deleteProductById(2));
 // productManager.addProduct({ title: "Peugeot", description: "Peugeot", price: 7000, stock: 10, thumbnail: ["https://yt3.ggpht.com/ytc/AMLnZu9VHYpPZl_WboTCenxYZtchOdCvzgy53zvLsOGYig=s88-c-k-c0x00ffffff-no-rj"] });
 // console.log(await productManager.updateProductById(3, { title: "Peugeot", description: "Peugeot", price: 7000, stock: 10, thumbnail: ["https://yt3.ggpht.com/ytc/AMLnZu9VHYpPZl_WboTCenxYZtchOdCvzgy53zvLsOGYig=s88-c-k-c0x00ffffff-no-rj"] }));
