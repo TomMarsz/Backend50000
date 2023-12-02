@@ -1,0 +1,15 @@
+{
+  "name": "challenge03.servidorconexpress",
+  "version": "1.0.0",
+  "description": "Tercera entrega de la comisión 50000 de CoderHouse",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tomas Marsico",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
