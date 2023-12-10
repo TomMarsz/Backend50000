@@ -1,4 +1,3 @@
-import { promises as fs } from 'fs'
 import { Router } from "express";
 import cartManager from '../../manager/carts.manager.js';
 
@@ -38,8 +37,9 @@ cartsRouter.get('/:cid', async (req, res) => {
 
 cartsRouter.post('/:cid/products/:pid', async (req, res) => {
   try {
-    const { cid, pid } = req.params
-    res.json(await cartManager.createCart())
+    const cid = parseInt(req.params.cid)
+    const pid = parseInt(req.params.pid)
+
   } catch (error) {
     console.log(error);
   }

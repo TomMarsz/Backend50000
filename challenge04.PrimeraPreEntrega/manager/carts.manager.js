@@ -1,5 +1,4 @@
 import { promises as fs } from 'fs'
-import { randomUUID } from 'crypto'
 
 class CartManager {
   constructor(path) {
