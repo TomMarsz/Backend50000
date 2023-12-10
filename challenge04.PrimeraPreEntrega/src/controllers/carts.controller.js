@@ -1,5 +1,5 @@
 import { Router } from "express";
-import cartManager from '../../manager/carts.manager.js';
+import cartManager from '../manager/carts.manager.js';
 
 const cartsRouter = Router()
 
@@ -24,11 +24,11 @@ cartsRouter.post('/', async (req, res) => {
 
 cartsRouter.get('/:cid', async (req, res) => {
   try {
-    const cid = parseInt(req.params.cid)
+    const { cid } = req.params
     const carts = await cartManager.getCarts()
     if (isNaN(cid)) return res.json({ error: 'The entered parameter is not a number' })
     if (cid < 1 || cid > carts.length) return res.json({ error: 'The entered parameter is not valid' })
-    const cartById = await cartManager.getCartById(cid)
+    const cartById = await cartManager.getCartById(Number(cid))
     res.json({ payload: cartById })
   } catch (error) {
     console.log(error);
@@ -37,8 +37,7 @@ cartsRouter.get('/:cid', async (req, res) => {
 
 cartsRouter.post('/:cid/products/:pid', async (req, res) => {
   try {
-    const cid = parseInt(req.params.cid)
-    const pid = parseInt(req.params.pid)
+    const { cid, pid } = req.params
 
   } catch (error) {
     console.log(error);

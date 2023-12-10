@@ -1,5 +1,5 @@
-import productsRouter from "../controllers/products.controler.js";
-import cartsRouter from "../controllers/carts.controler.js";
+import productsRouter from "../controllers/products.controller.js";
+import cartsRouter from "../controllers/carts.controller.js";
 
 const router = app => {
   app.use("/api/products", productsRouter);
