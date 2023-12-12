@@ -48,7 +48,7 @@ class ProductManager {
       products.push(newProduct)
       await fs.writeFile(`./${this.path}`, JSON.stringify(products, null, "\t"))
       console.log('New product added:', newProduct)
-      return products
+      return newProduct
     } catch (error) {
       throw new Error(`Error adding product: ${error.message}`)
     }
@@ -75,7 +75,7 @@ class ProductManager {
         }
         await fs.writeFile(`./${this.path}`, JSON.stringify(products, null, "\t"), 'utf-8')
         console.log('Product updated successfully.')
-        return products
+        return products[productIndex]
       } else {
         console.log('Product not found.')
         return null
@@ -88,14 +88,16 @@ class ProductManager {
   async deleteProductById(productId) {
     try {
       const products = await this.getProducts()
+      const productFind = products.find((p) => p.id === productId)
       const productIndex = products.findIndex((p) => p.id === productId)
+      console.log(productId);
       if (productIndex === -1) {
         throw new Error(`Product with ID ${productId} not found`)
       }
       const productsFilt = products.filter((p) => p.id !== productId)
       await fs.writeFile(`./${this.path}`, JSON.stringify(productsFilt, null, "\t"))
       console.log(`Product with Id: ${productId} is deleted`)
-      return productsFilt
+      return productFind
     } catch (error) {
       throw new Error(`Error deleting product by ID: ${error.message}`)
     }

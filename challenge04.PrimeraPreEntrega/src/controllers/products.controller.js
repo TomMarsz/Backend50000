@@ -31,21 +31,24 @@ productsRouter.get('/:pid', async (req, res) => {
 
 productsRouter.post('/', async (req, res) => {
   const { body } = req
-  const products = await productManager.addProduct(body)
-  res.json({ payload: products })
+  const productAdded = await productManager.addProduct(body)
+  const products = await productManager.getProducts()
+  res.json({ payload: { productAdded, products } })
 })
 
 productsRouter.put('/:pid', async (req, res) => {
   const { pid } = req.params
   const { body } = req
-  const products = await productManager.updateProductById(Number(pid), body)
-  res.json({ payload: products })
+  const updatedProduct = await productManager.updateProductById(Number(pid), body)
+  const products = await productManager.getProducts()
+  res.json({ payload: { updatedProduct, products } })
 })
 
 productsRouter.delete('/:pid', async (req, res) => {
   const { pid } = req.params
-  const products = await productManager.deleteProductById(Number(pid))
-  res.json({ payload: products })
+  const deletedProduct = await productManager.deleteProductById(Number(pid))
+  const products = await productManager.getProducts()
+  res.json({ payload: { deletedProduct, products } })
 })
 
 export default productsRouter

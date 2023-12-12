@@ -66,15 +66,14 @@
 	},
 	{
 		"id": 6,
-		"title": "Peugeot",
-		"description": "Peugeot",
+		"title": "Oldsmobile",
+		"description": "Oldsmobile",
 		"code": "0277e718-51d5-491d-a3b4-bc8921e027d5",
-		"price": 7000,
-		"status": true,
+		"price": 9153,
 		"stock": 10,
 		"category": "car",
 		"thumbnail": [
-			"https://yt3.ggpht.com/ytc/AMLnZu9VHYpPZl_WboTCenxYZtchOdCvzgy53zvLsOGYig=s88-c-k-c0x00ffffff-no-rj"
+			"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Oldsmobile_logo_used_from_1981_until_1997.svg/245px-Oldsmobile_logo_used_from_1981_until_1997.svg.png"
 		]
 	},
 	{
