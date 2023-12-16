@@ -10,7 +10,6 @@ class CartManager {
       const content = JSON.parse(await fs.readFile(`./${this.path}`, 'utf-8'))
       return content
     } catch (error) {
-      console.log(error)
       throw new Error(`Error reading carts: ${error.message}`)
     }
   }
@@ -23,7 +22,7 @@ class CartManager {
       carts.push(newCart)
       await fs.writeFile(`./${this.path}`, JSON.stringify(carts, null, "\t"))
       console.log('New cart added:', newCart)
-      return carts
+      return newCart
     } catch (error) {
       throw new Error(`Error adding cart: ${error.message}`)
     }
@@ -33,46 +32,30 @@ class CartManager {
     try {
       const carts = await this.getCarts()
       const foundCart = carts.find((c) => c.id === cartId)
-      return foundCart ? [foundCart] : console.log('Cart not found.')
+      return foundCart
     } catch (error) {
       throw new Error(`Error getting cart by ID: ${error.message}`)
     }
   }
 
-  async updateProductById(productId, productData) {
+  async updateCartById(cartId, cartData) {
     try {
-      const products = await this.getProducts()
-      const productIndex = products.findIndex((p) => p.id === productId)
-      if (productIndex !== -1) {
-        products[productIndex] = {
-          ...products[productIndex],
-          ...productData,
+      const carts = await this.getCarts()
+      const cartIndex = carts.findIndex((c) => c.id === cartId)
+      if (cartIndex !== -1) {
+        carts[cartIndex] = {
+          ...carts[cartIndex],
+          ...cartData,
         }
-        await fs.writeFile(`./${this.path}`, JSON.stringify(products, null, "\t"), 'utf-8')
+        await fs.writeFile(`./${this.path}`, JSON.stringify(carts, null, "\t"), 'utf-8')
         console.log('Product updated successfully.')
-        return products
+        return carts
       } else {
         console.log('Product not found.')
         return null
       }
     } catch (error) {
       throw new Error(`Error updating product by ID: ${error.message}`)
-    }
-  }
-
-  async deleteProductById(productId) {
-    try {
-      const products = await this.getProducts()
-      const productIndex = products.findIndex((p) => p.id === productId)
-      if (productIndex === -1) {
-        throw new Error(`Product with ID ${productId} not found`)
-      }
-      const productsFilt = products.filter((p) => p.id !== productId)
-      await fs.writeFile(`./${this.path}`, JSON.stringify(productsFilt, null, "\t"))
-      console.log(`Product with Id: ${productId} is deleted`)
-      return productsFilt
-    } catch (error) {
-      throw new Error(`Error deleting product by ID: ${error.message}`)
     }
   }
 }

@@ -15,8 +15,8 @@ cartsRouter.get('/', async (req, res) => {
 cartsRouter.post('/', async (req, res) => {
   try {
     const { body } = req
-    const carts = await cartManager.addCart(body)
-    res.json({ payload: carts })
+    const cartAdded = await cartManager.addCart(body)
+    res.json({ payload: { cartAdded } })
   } catch (error) {
     console.log(error);
   }
@@ -29,7 +29,9 @@ cartsRouter.get('/:cid', async (req, res) => {
     if (isNaN(cid)) return res.json({ error: 'The entered parameter is not a number' })
     if (cid < 1 || cid > carts.length) return res.json({ error: 'The entered parameter is not valid' })
     const cartById = await cartManager.getCartById(Number(cid))
-    res.json({ payload: cartById })
+    if (!cartById) return res.status(404).json({ error: 'Cart not found' });
+    const productsInCart = cartById.products
+    res.json({ payload: { productsInCart } })
   } catch (error) {
     console.log(error);
   }
@@ -38,7 +40,13 @@ cartsRouter.get('/:cid', async (req, res) => {
 cartsRouter.post('/:cid/products/:pid', async (req, res) => {
   try {
     const { cid, pid } = req.params
-
+    const carts = await cartManager.getCarts()
+    if (isNaN(cid)) return res.json({ error: 'The entered parameter is not a number' })
+    if (cid < 1 || cid > carts.length) return res.json({ error: 'The entered parameter is not valid' })
+    const cartById = await cartManager.getCartById(Number(cid))
+    if (!cartById) return res.status(404).json({ error: 'Cart not found' });
+    const { products } = cartById
+    console.log(products);
   } catch (error) {
     console.log(error);
   }
