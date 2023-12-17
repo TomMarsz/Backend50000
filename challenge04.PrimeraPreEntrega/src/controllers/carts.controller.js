@@ -8,7 +8,7 @@ cartsRouter.get('/', async (req, res) => {
     const carts = await cartManager.getCarts()
     res.json({ payload: carts })
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ error: error.message })
   }
 })
 
@@ -18,7 +18,7 @@ cartsRouter.post('/', async (req, res) => {
     const cartAdded = await cartManager.addCart(body)
     res.json({ payload: { cartAdded } })
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ error: error.message })
   }
 })
 
@@ -33,23 +33,21 @@ cartsRouter.get('/:cid', async (req, res) => {
     const productsInCart = cartById.products
     res.json({ payload: { productsInCart } })
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ error: error.message })
   }
 })
 
 cartsRouter.post('/:cid/products/:pid', async (req, res) => {
   try {
+    const { quantity } = req.body
     const { cid, pid } = req.params
-    const carts = await cartManager.getCarts()
-    if (isNaN(cid)) return res.json({ error: 'The entered parameter is not a number' })
-    if (cid < 1 || cid > carts.length) return res.json({ error: 'The entered parameter is not valid' })
-    const cartById = await cartManager.getCartById(Number(cid))
-    if (!cartById) return res.status(404).json({ error: 'Cart not found' });
-    const { products } = cartById
-    console.log(products);
-  } catch (error) {
-    console.log(error);
+    const updatedCart = await cartManager.updateCartById(Number(cid), Number(pid), quantity)
+    res.json({ payload: { updatedCart } })
   }
+  catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+
 })
 
 export default cartsRouter

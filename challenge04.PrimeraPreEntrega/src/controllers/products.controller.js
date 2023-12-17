@@ -12,7 +12,7 @@ productsRouter.get('/', async (req, res) => {
     const productsLimited = products.slice(0, limit)
     res.json({ payload: productsLimited })
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ error: error.message })
   }
 });
 
@@ -25,30 +25,42 @@ productsRouter.get('/:pid', async (req, res) => {
     const productById = await productManager.getProductById(Number(pid))
     res.json({ payload: productById })
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ error: error.message })
   }
 })
 
 productsRouter.post('/', async (req, res) => {
-  const { body } = req
-  const productAdded = await productManager.addProduct(body)
-  const products = await productManager.getProducts()
-  res.json({ payload: { productAdded, products } })
+  try {
+    const { body } = req
+    const productAdded = await productManager.addProduct(body)
+    const products = await productManager.getProducts()
+    res.json({ payload: { productAdded, products } })
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
 })
 
 productsRouter.put('/:pid', async (req, res) => {
-  const { pid } = req.params
-  const { body } = req
-  const updatedProduct = await productManager.updateProductById(Number(pid), body)
-  const products = await productManager.getProducts()
-  res.json({ payload: { updatedProduct, products } })
+  try {
+    const { pid } = req.params
+    const { body } = req
+    const updatedProduct = await productManager.updateProductById(Number(pid), body)
+    const products = await productManager.getProducts()
+    res.json({ payload: { updatedProduct, products } })
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
 })
 
 productsRouter.delete('/:pid', async (req, res) => {
-  const { pid } = req.params
-  const deletedProduct = await productManager.deleteProductById(Number(pid))
-  const products = await productManager.getProducts()
-  res.json({ payload: { deletedProduct, products } })
+  try {
+    const { pid } = req.params
+    const deletedProduct = await productManager.deleteProductById(Number(pid))
+    const products = await productManager.getProducts()
+    res.json({ payload: { deletedProduct, products } })
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
 })
 
 export default productsRouter

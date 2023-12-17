@@ -38,24 +38,24 @@ class CartManager {
     }
   }
 
-  async updateCartById(cartId, cartData) {
+  async updateCartById(cartId, productId, quantity) {
     try {
       const carts = await this.getCarts()
       const cartIndex = carts.findIndex((c) => c.id === cartId)
-      if (cartIndex !== -1) {
-        carts[cartIndex] = {
-          ...carts[cartIndex],
-          ...cartData,
-        }
-        await fs.writeFile(`./${this.path}`, JSON.stringify(carts, null, "\t"), 'utf-8')
-        console.log('Product updated successfully.')
-        return carts
-      } else {
-        console.log('Product not found.')
-        return null
+      if (cartIndex === -1) {
+        throw new Error(`Cart with ID ${cartId} not found`)
       }
+      const productIndex = carts[cartIndex].products.findIndex((p) => p.product === productId)
+      if (productIndex === -1) {
+        carts[cartIndex].products.push({ product: productId, quantity: quantity })
+        await fs.writeFile(`./${this.path}`, JSON.stringify(carts, null, "\t"))
+        return carts[cartIndex]
+      }
+      carts[cartIndex].products[productIndex].quantity += quantity
+      await fs.writeFile(`./${this.path}`, JSON.stringify(carts, null, "\t"))
+      return carts[cartIndex]
     } catch (error) {
-      throw new Error(`Error updating product by ID: ${error.message}`)
+      throw new Error(`Error updating cart by ID: ${error.message}`)
     }
   }
 }
