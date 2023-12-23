@@ -1,8 +1,30 @@
-<h2>Lista de Productos</h2>
+<div class="container">
+  <h2>Lista de Productos</h2>
 
-{{#each products}}
-<div>
-  <p>Nombre: {{this.title}}</p>
-  <p>Precio: {{this.price}}</p>
+  <table>
+    {{#if productsLimited}}
+    {{#each productsLimited}}
+    <tr>
+      <th>Nombre: {{this.title}}</th>
+      <th>Precio: {{this.price}}</th>
+    </tr>
+    {{/each}}
+    {{/if}}
+
+    {{#if productById}}
+    {{#each productById}}
+    <tr>
+      <th>Nombre: {{this.title}}</th>
+      <th>Precio: {{this.price}}</th>
+    </tr>
+    {{/each}}
+    {{/if}}
+
+    {{#each products}}
+    <tr>
+      <th>Nombre: {{this.title}}</th>
+      <th>Precio: {{this.price}}</th>
+    </tr>
+    {{/each}}
+  </table>
 </div>
-{{/each}}
