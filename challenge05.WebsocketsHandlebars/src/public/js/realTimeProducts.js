@@ -14,6 +14,7 @@ async function getFormData() {
       } catch (error) {
         console.error(error);
       }
+      return formData
     })
   } catch (error) {
     console.error(error);
@@ -22,3 +23,4 @@ async function getFormData() {
 
 const data = getFormData()
 socket.emit('productAddByForm', data)
+socket.on('productAddedLogs', data => { })

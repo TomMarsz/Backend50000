@@ -34,7 +34,7 @@ io.on('connection', socket => {
 
   socket.on('productAddByForm', data => {
     console.log(data);
-    socket.broadcast.emit('productAddByForm', data)
+    io.emit('productAddedLogs', data)
   })
 
   io.emit('productAddByForm', 'La lista de productos fue actualizada')
