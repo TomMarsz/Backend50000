@@ -21,3 +21,4 @@ async function getFormData() {
 };
 
 const data = getFormData()
+socket.emit('productAddByForm', data)

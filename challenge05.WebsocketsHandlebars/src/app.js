@@ -32,12 +32,10 @@ const io = new Server(httpServer)
 io.on('connection', socket => {
   console.log(socket.id);
 
-  socket.on('message', data => {
+  socket.on('productAddByForm', data => {
     console.log(data);
+    socket.broadcast.emit('productAddByForm', data)
   })
 
-  socket.emit('messageServer', 'Hola desde el server')
-  socket.broadcast.emit('messageOthers', 'Hola a todos menos al principal')
-
-  io.emit('messageAll', 'La lista de productos fue actualizada')
+  io.emit('productAddByForm', 'La lista de productos fue actualizada')
 })
