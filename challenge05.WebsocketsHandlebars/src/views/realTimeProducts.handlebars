@@ -41,14 +41,16 @@
 
   <table>
     <tr>
-      <th><span>Nombre:</span></th>
-      <th><span>Descripción:</span></th>
-      <th><span>Categoría:</span></th>
-      <th><span>Precio:</span></th>
-      <th><span>Stock:</span></th>
+      <th><span>ID</span></th>
+      <th><span>Nombre</span></th>
+      <th><span>Descripción</span></th>
+      <th><span>Categoría</span></th>
+      <th><span>Precio</span></th>
+      <th><span>Stock</span></th>
     </tr>
     {{#each products}}
     <tr>
+      <td>{{this.id}}</td>
       <td>{{this.title}}</td>
       <td>{{this.description}}</td>
       <td>{{this.category}}</td>

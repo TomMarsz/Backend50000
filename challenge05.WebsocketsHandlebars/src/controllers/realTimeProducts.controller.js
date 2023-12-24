@@ -12,4 +12,15 @@ realTimeProductsRouter.get('/', async (req, res) => {
   }
 })
 
+realTimeProductsRouter.post('/', async (req, res) => {
+  try {
+    const { body } = req
+    const productAdded = await productManager.addProduct(body)
+    const products = await productManager.getProducts()
+    return res.render('realTimeProducts', { products, productAdded, title: 'Challenge05: WebsocketsHandlebars', style: 'realTimeProducts.css' })
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
 export default realTimeProductsRouter
