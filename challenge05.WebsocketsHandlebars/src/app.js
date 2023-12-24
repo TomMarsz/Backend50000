@@ -11,16 +11,15 @@ app.use(express.static(process.cwd() + '/src/public'))
 
 app.engine('handlebars', handlebars.engine())
 app.set('views', process.cwd() + '/src/views')
-app.set('view engine', 'handlebars')
 
 router(app)
 
 app.get("/", (req, res) => {
-  res.render('index', { title: 'Challenge05: WebsocketsHandlebars', style: 'index.css' })
+  res.render('index.handlebars', { title: 'Challenge05: WebsocketsHandlebars', style: 'index.css' })
 });
 
 app.get('*', (req, res) => {
-  res.status(404).render('404', { error: 'Not a valid page', title: '404 Not Found', style: 'index.css' })
+  res.status(404).render('404.handlebars', { error: 'Not a valid page', title: '404 Not Found', style: 'index.css' })
 })
 
 const httpServer = app.listen(port, () => {

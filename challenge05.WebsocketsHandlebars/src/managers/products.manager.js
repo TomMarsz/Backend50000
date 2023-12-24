@@ -17,7 +17,7 @@ class ProductManager {
   }
 
   validateProductData(productData) {
-    const { title, description, price, status, stock, category } = productData
+    const { title, description, price, stock, category } = productData
     if (!title || typeof title !== "string" || title.trim() === "") {
       throw new Error('Invalid product title')
     }
