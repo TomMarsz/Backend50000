@@ -1,28 +1,62 @@
-<h2>Agregar Producto</h2>
+<div class="container">
+  <h2>Agregar Producto</h2>
+  <div class="form-container">
+    <form action="/realtimeproducts" method="post" class="form-content">
+      <div class="form-inputlabel">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+        <br>
+      </div>
 
-<form action="/realtimeproducts" method="post">
-  <label for="title">Title:</label>
-  <input type="text" id="title" name="title" required>
-  <br>
+      <div class="form-inputlabel">
+        <label for="descritption">Descritption:</label>
+        <input type="text" id="descritption" name="descritption" required>
+        <br>
+      </div>
 
-  <label for="descritption">Descritption:</label>
-  <input type="text" id="descritption" name="descritption" required>
-  <br>
+      <div class="form-inputlabel">
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category" required>
+        <br>
+      </div>
 
-  <label for="category">Category:</label>
-  <input type="text" id="category" name="category" required>
-  <br>
+      <div class="form-inputlabel">
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required>
+        <br>
+      </div>
 
-  <label for="price">Price:</label>
-  <input type="number" id="price" name="price" required>
-  <br>
+      <div class="form-inputlabel">
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" name="stock" required>
+        <br>
+      </div>
 
-  <label for="stock">Stock:</label>
-  <input type="number" id="stock" name="stock" required>
-  <br>
+      <div class="form-submitbtn">
+        <input type="submit" value="Agregar Producto">
+      </div>
+    </form>
+  </div>
+  <h2>Lista de Productos</h2>
 
-  <input type="submit" value="Agregar Producto">
-</form>
-
+  <table>
+    <tr>
+      <th><span>Nombre:</span></th>
+      <th><span>Descripción:</span></th>
+      <th><span>Categoría:</span></th>
+      <th><span>Precio:</span></th>
+      <th><span>Stock:</span></th>
+    </tr>
+    {{#each products}}
+    <tr>
+      <td>{{this.title}}</td>
+      <td>{{this.description}}</td>
+      <td>{{this.category}}</td>
+      <td>{{this.price}}</td>
+      <td>{{this.stock}}</td>
+    </tr>
+    {{/each}}
+  </table>
+</div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/realTimeProducts.js"></script>

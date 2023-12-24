@@ -19,6 +19,7 @@ body {
 }
 
 .container h2,
+.container h3,
 .container p {
   margin-bottom: 2rem;
 }

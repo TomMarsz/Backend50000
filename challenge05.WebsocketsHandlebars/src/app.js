@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.status(404).json({ error: 'Not Found 404' })
+  res.status(404).render('404', { error: 'Not a valid page', title: '404 Not Found', style: 'index.css' })
 })
 
 const httpServer = app.listen(port, () => {

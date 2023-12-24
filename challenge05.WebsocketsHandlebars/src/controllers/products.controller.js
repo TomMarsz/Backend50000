@@ -6,9 +6,9 @@ const productsRouter = Router()
 productsRouter.get('/', async (req, res) => {
   try {
     const products = await productManager.getProducts()
-    const limit = parseInt(req.query.limit)
+    const { limit } = req.query
     if (!limit || limit >= products.length) return res.render('products', { products, title: 'Challenge05: WebsocketsHandlebars', style: 'products.css' })
-    if (limit <= 0) return res.json({ error: 'Invalid limit parameter' })
+    if (limit <= 0 || isNaN(limit)) return res.status(404).render('404', { error: 'Invalid limit parameter', title: '404 Not Found', style: 'index.css' })
     const productsLimited = products.slice(0, limit)
     res.render('products', { productsLimited, title: 'Challenge05: WebsocketsHandlebars', style: 'products.css' })
   } catch (error) {
@@ -20,8 +20,8 @@ productsRouter.get('/:pid', async (req, res) => {
   try {
     const { pid } = req.params
     const products = await productManager.getProducts()
-    if (isNaN(pid)) return res.json({ error: 'The entered parameter is not a number' })
-    if (pid < 1 || pid > products.length) return res.json({ error: 'The entered parameter is not valid' })
+    if (isNaN(pid)) return res.status(404).render('404', { error: 'The entered parameter is not a number', title: '404 Not Found', style: 'index.css' })
+    if (pid < 1 || pid > products.length) return res.status(404).render('404', { error: 'The entered parameter is not valid', title: '404 Not Found', style: 'index.css' })
     const productById = await productManager.getProductById(Number(pid))
     res.render('products', { productById, title: 'Challenge05: WebsocketsHandlebars', style: 'products.css' })
   } catch (error) {
