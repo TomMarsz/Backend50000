@@ -31,11 +31,6 @@ const io = new Server(httpServer)
 
 io.on('connection', socket => {
   console.log(socket.id);
-
-  socket.on('productAddByForm', data => {
-    console.log(data);
-    io.emit('productAddedLogs', data)
-  })
-
-  io.emit('productAddByForm', 'La lista de productos fue actualizada')
 })
+
+export { io }

@@ -27,6 +27,27 @@ body {
 .form-content {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+}
+
+.form-submitbtn button {
+  padding: 0.75rem;
+  background-color: rgb(20, 15, 70);
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 5px;
+}
+
+.form-submitbtn button:hover,
+.deleteBtn:hover {
+  color: rgb(20, 15, 70);
+  background-color: rgb(255, 255, 255);
+}
+
+.deleteBtn {
+  background-color: rgb(20, 15, 70);
+  color: rgb(255, 255, 255);
+  border-radius: 5px;
 }
 
 .container h2,
@@ -43,7 +64,7 @@ table {
 th,
 td {
   border: 1px solid rgb(221, 221, 221);
-  text-align: left;
+  text-align: center;
   padding: 8px;
 }
 

@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs'
 import { randomUUID } from 'crypto'
 
-class ProductManager {
+class RealTimeProductsManager {
   constructor(path) {
     this.path = path
   }
@@ -51,37 +51,6 @@ class ProductManager {
     }
   }
 
-  async getProductById(productId) {
-    try {
-      const products = await this.getProducts()
-      const foundProduct = products.find((p) => p.id === productId)
-      return foundProduct ? [foundProduct] : console.log('Product not found.')
-    } catch (error) {
-      throw new Error(`Error getting product by ID: ${error.message}`)
-    }
-  }
-
-  async updateProductById(productId, productData) {
-    try {
-      const products = await this.getProducts()
-      const productIndex = products.findIndex((p) => p.id === productId)
-      if (productIndex !== -1) {
-        products[productIndex] = {
-          ...products[productIndex],
-          ...productData,
-        }
-        await fs.writeFile(`./${this.path}`, JSON.stringify(products, null, "\t"), 'utf-8')
-        console.log('Product updated successfully.')
-        return products[productIndex]
-      } else {
-        console.log('Product not found.')
-        return null
-      }
-    } catch (error) {
-      throw new Error(`Error updating product by ID: ${error.message}`)
-    }
-  }
-
   async deleteProductById(productId) {
     try {
       const products = await this.getProducts()
@@ -100,6 +69,6 @@ class ProductManager {
   }
 }
 
-const productManager = new ProductManager('./data/products.json')
+const realTimeProductsManager = new RealTimeProductsManager('./data/products.json')
 
-export default productManager
+export default realTimeProductsManager
