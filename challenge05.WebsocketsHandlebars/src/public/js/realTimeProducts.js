@@ -25,7 +25,7 @@ const renderProducts = async (products) => {
     <td>${product.category}</td>
     <td>${product.price}</td>
     <td>${product.stock}</td>
-    <td><button id={{id}} onclick="handleDelete(event, {{id}})" class="deleteBtn">❌</button></td>
+    <td><button id=${product.id} onclick="handleDelete(event, ${product.id})" class="deleteBtn">❌</button></td>
     `
       productsTable.appendChild(productTableRow)
     }

@@ -6,7 +6,7 @@ const cartsRouter = Router()
 cartsRouter.get('/', async (req, res) => {
   try {
     const carts = await cartManager.getCarts()
-    res.json({ payload: carts })
+    return res.render('carts.handlebars', { carts, title: 'Challenge05: WebsocketsHandlebars', style: 'carts.css' })
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
@@ -31,7 +31,7 @@ cartsRouter.get('/:cid', async (req, res) => {
     const cartById = await cartManager.getCartById(Number(cid))
     if (!cartById) return res.status(404).json({ error: 'Cart not found' });
     const productsInCart = cartById.products
-    res.json({ payload: { productsInCart } })
+    return res.render('carts.handlebars', { productsInCart, cid, title: 'Challenge05: WebsocketsHandlebars', style: 'carts.css' })
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

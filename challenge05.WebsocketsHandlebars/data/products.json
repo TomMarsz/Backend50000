@@ -13,6 +13,19 @@
 		]
 	},
 	{
+		"id": 2,
+		"title": "Mini Cooper",
+		"description": "Mini Cooper",
+		"code": "0277e718-51d5-491d-a3b4-bc8921e027d1",
+		"price": 1234,
+		"status": true,
+		"stock": 1,
+		"category": "car",
+		"thumbnail": [
+			"https://acnews.blob.core.windows.net/imgnews/extralarge/NAZ_16d81085f2a64be09e1a0b9c55eb04b9.jpg"
+		]
+	},
+	{
 		"id": 3,
 		"title": "Mitsubishi",
 		"description": "Mitsubishi",
