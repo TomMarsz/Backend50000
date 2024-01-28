@@ -1,28 +1,32 @@
 import { Router } from "express";
 import cartManager from '../managers/carts.manager.js';
+import Cart from "../models/cart.model.js";
+import HTTP_RESPONSES from "../constants/http-responses.constant.js";
 
-const cartsRouter = Router()
+const cartsController = Router()
 
-cartsRouter.get('/', async (req, res) => {
+cartsController.get('/', async (req, res) => {
   try {
+    const cartDB = await Cart.find()
+    res.json({ payload: cartDB })
     const carts = await cartManager.getCarts()
     return res.render('carts.handlebars', { carts, title: 'Challenge05: WebsocketsHandlebars', style: 'carts.css' })
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    res.status(HTTP_RESPONSES.INTERNAL_SERVER_ERROR).json({ error: error.message })
   }
 })
 
-cartsRouter.post('/', async (req, res) => {
+cartsController.post('/', async (req, res) => {
   try {
     const { body } = req
     const cartAdded = await cartManager.addCart(body)
     res.json({ payload: { cartAdded } })
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    res.status(HTTP_RESPONSES.INTERNAL_SERVER_ERROR).json({ error: error.message })
   }
 })
 
-cartsRouter.get('/:cid', async (req, res) => {
+cartsController.get('/:cid', async (req, res) => {
   try {
     const { cid } = req.params
     const carts = await cartManager.getCarts()
@@ -33,11 +37,11 @@ cartsRouter.get('/:cid', async (req, res) => {
     const productsInCart = cartById.products
     return res.render('carts.handlebars', { productsInCart, cid, title: 'Challenge05: WebsocketsHandlebars', style: 'carts.css' })
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    res.status(HTTP_RESPONSES.INTERNAL_SERVER_ERROR).json({ error: error.message })
   }
 })
 
-cartsRouter.post('/:cid/products/:pid', async (req, res) => {
+cartsController.post('/:cid/products/:pid', async (req, res) => {
   try {
     const { quantity } = req.body
     const { cid, pid } = req.params
@@ -45,9 +49,9 @@ cartsRouter.post('/:cid/products/:pid', async (req, res) => {
     res.json({ payload: { updatedCart } })
   }
   catch (error) {
-    res.status(500).json({ error: error.message })
+    res.status(HTTP_RESPONSES.INTERNAL_SERVER_ERROR).json({ error: error.message })
   }
 
 })
 
-export default cartsRouter
+export default cartsController

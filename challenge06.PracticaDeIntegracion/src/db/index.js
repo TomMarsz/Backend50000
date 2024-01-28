@@ -1,8 +1,9 @@
 import mongoose from 'mongoose'
+import { dbUser, dbPassword, dbHost, dbName } from "../configs/db.config.js"
 
 const mongoConnect = async () => {
   try {
-    await mongoose.connect('mongodb+srv://admin:admin@cluster0.ckyvij9.mongodb.net/?retryWrites=true&w=majority')
+    await mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@${dbHost}/${dbName}?retryWrites=true&w=majority`)
     console.log('db is connected');
   } catch (error) {
     console.log(error);
