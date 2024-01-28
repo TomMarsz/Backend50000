@@ -5,10 +5,6 @@ const productCollection = 'products'
 const productSchema = new mongoose.Schema({
   title: String,
   description: String,
-  code: {
-    type: String,
-    unique: true
-  },
   price: Number,
   status: {
     type: Boolean,
@@ -16,7 +12,9 @@ const productSchema = new mongoose.Schema({
   },
   stock: Number,
   category: String,
-  thumbnail: Array
+  thumbnail: Array,
+  createdAt: Date,
+  updatedAt: Date
 })
 
 const Product = mongoose.model(productCollection, productSchema)

@@ -1,7 +1,7 @@
 import { Router } from "express";
-import realTimeProductsManager from "../managers/realTimeProducts.manager.js ";
-import { io } from "../server.js";
+import realTimeProductsManager from "../../DAO/managers/realTimeProducts.manager.js";
 import HTTP_RESPONSES from "../constants/http-responses.constant.js";
+import { io } from "../app.js";
 
 const realTimeProductsController = Router()
 
