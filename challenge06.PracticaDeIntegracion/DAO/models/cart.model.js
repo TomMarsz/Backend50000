@@ -16,6 +16,12 @@ const cartSchema = new mongoose.Schema({
         default: 1,
       },
     }],
+    status: {
+      type: Boolean,
+      default: true
+    },
+    createdAt: Date,
+    updatedAt: Date
   });
 
 const Cart = mongoose.model(cartCollection, cartSchema)

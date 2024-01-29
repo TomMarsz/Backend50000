@@ -1,37 +1,37 @@
-import ProductDAOMongo from "../../DAO/mongo/product-dao.mongo.js"
+import CartDAOMongo from "../../DAO/mongo/cart-dao.mongo.js"
 
-const Product = new ProductDAOMongo()
+const Cart = new CartDAOMongo()
 
 const getAll = async () => {
   try {
-    const products = await Product.getAll()
-    return products
+    const carts = await Cart.getAll()
+    return carts
   } catch (error) {
     throw error
   }
 }
 
-const insertOne = async (newProductInfo) => {
+const insertOne = async (newCartInfo) => {
   try {
-    const newProduct = await Product.insertOne(newProductInfo)
-    return newProduct
+    const newCart = await Cart.insertOne(newCartInfo)
+    return newCart
   } catch (error) {
     throw error
   }
 }
 
-const findOne = async (pid) => {
+const findOne = async (cid) => {
   try {
-    const product = await Product.findOne(pid)
-    return product
+    const cart = await Cart.findOne(cid)
+    return cart
   } catch (error) {
     throw error
   }
 }
 
-const updateOne = async (pid, productInfo) => {
+const updateOne = async (cid, productInfo) => {
   try {
-    const updatedProduct = await Product.updateOne(pid, productInfo)
+    const updatedProduct = await Cart.updateOne(cid, productInfo)
     return updatedProduct
   } catch (error) {
     throw error
@@ -40,7 +40,7 @@ const updateOne = async (pid, productInfo) => {
 
 const deleteOne = async (pid) => {
   try {
-    const deletedProduct = await Product.deleteOne(pid)
+    const deletedProduct = await Cart.deleteOne(pid)
     return deletedProduct
   } catch (error) {
     throw error
