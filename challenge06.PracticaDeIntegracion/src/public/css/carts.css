@@ -23,6 +23,10 @@ body {
   margin-bottom: 2rem;
 }
 
+h2 span {
+  color: yellow;
+}
+
 table {
   width: 50%;
   border-collapse: collapse;

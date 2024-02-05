@@ -8,7 +8,7 @@
     </tr>
     {{#each carts}}
     <tr>
-      <td>{{id}}</td>
+      <td>{{_id}}</td>
       <td>
         {{#each products}}
         <ul>
@@ -23,11 +23,11 @@
   {{/if}}
 
   {{#if productsInCart}}
-  <h2>Carrito con Id: {{cid}}</h2>
+  <h2>Carrito con Id: <span>{{cid}}</span></h2>
   <table>
     <tr>
-      <th>Producto</th>
-      <th>Cantidad</th>
+      <th><span>Producto</span></th>
+      <th><span>Cantidad</span></th>
     </tr>
     {{#each productsInCart}}
     <tr>
