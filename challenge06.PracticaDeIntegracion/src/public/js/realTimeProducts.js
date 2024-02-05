@@ -19,13 +19,13 @@ const renderProducts = async (products) => {
     for (const product of products) {
       const productTableRow = document.createElement('tr')
       productTableRow.innerHTML = `
-    <td>${product.id}</td>
+    <td>${product._id}</td>
     <td>${product.title}</td>
     <td>${product.description}</td>
     <td>${product.category}</td>
     <td>${product.price}</td>
     <td>${product.stock}</td>
-    <td><button id=${product.id} onclick="handleDelete(event, ${product.id})" class="deleteBtn">❌</button></td>
+    <td><button id="${product._id}" onclick="handleDelete(event, ${product._id})" class="deleteBtn">❌</button></td>
     `
       productsTable.appendChild(productTableRow)
     }
@@ -46,7 +46,7 @@ const handleSubmit = async (e) => {
   const addedProduct = { title, description, category, price, stock }
 
   try {
-    const response = await fetch("http://localhost:8080/realtimeproducts", {
+    const response = await fetch("http://localhost:8080/api/realtimeproducts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,6 @@ const handleSubmit = async (e) => {
 
     const responseData = await response.json();
     console.log(responseData);
-
     e.target.reset();
   } catch (error) {
     console.error("Error:", error);
@@ -71,7 +70,7 @@ const handleDelete = async (e, id) => {
   e.preventDefault();
 
   try {
-    const response = await fetch(`http://localhost:8080/realtimeproducts/${id}`, {
+    const response = await fetch(`http://localhost:8080/api/realtimeproducts/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

@@ -4,20 +4,32 @@ import { Server } from "socket.io";
 import router from "./router/index.js"
 import mongoConnect from "./db/index.js";
 import port from "./configs/server.config.js"
+import messagesService from "./services/messages.service.js";
 import HTTP_RESPONSES from "./constants/http-responses.constant.js";
+
+
+const chats = []
 
 const app = express()
 
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-app.use(express.static(process.cwd() + '/src/public'))
+const hbs = handlebars.create({
+  runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true,
+  },
+})
 
-app.engine('handlebars', handlebars.engine())
+app.use(express.json())
+app.use(express.static(process.cwd() + '/src/public'))
+app.use(express.urlencoded({extended: true}))
+
+app.engine('handlebars', hbs.engine)
 app.set('views', process.cwd() + '/src/views')
 
-router(app)
 
 mongoConnect()
+
+router(app)
 
 app.get("/", (req, res) => {
   res.status(HTTP_RESPONSES.SUCCESS).render('index.handlebars', { title: 'Challenge05: WebsocketsHandlebars', style: 'index.css' })
@@ -36,6 +48,25 @@ const io = new Server(httpServer)
 
 io.on('connection', socket => {
   console.log(socket.id);
+  
+  socket.on('newUser', data => {
+    socket.broadcast.emit('userConnected', data)
+    socket.emit('messageLogs',chats)
+  })
+  
+  socket.on('message', async data => {
+    chats.push(data)
+    io.emit('messageLogs', chats)
+    try {
+      const newMeesage = {
+        user: data.useremail,
+        message: data.message,
+      }
+      await messagesService.insertOne(newMeesage)
+    } catch (error) {
+      console.log(error);
+    }
+  })
 })
 
 export { io }

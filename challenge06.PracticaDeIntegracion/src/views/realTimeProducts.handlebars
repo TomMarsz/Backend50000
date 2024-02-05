@@ -51,13 +51,13 @@
     </tr>
     {{#each products}}
     <tr>
-      <td>{{id}}</td>
+      <td>{{_id}}</td>
       <td>{{title}}</td>
       <td>{{description}}</td>
       <td>{{category}}</td>
       <td>{{price}}</td>
       <td>{{stock}}</td>
-      <td><button id={{id}} onclick="handleDelete(event, {{id}})" class="deleteBtn">❌</button></td>
+      <td><button id="{{_id}}" onclick="handleDelete(event, {{_id}})" class="deleteBtn">❌</button></td>
     </tr>
     {{/each}}
   </table>

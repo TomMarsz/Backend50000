@@ -12,12 +12,12 @@
     {{#if productsLimited}}
     {{#each productsLimited}}
     <tr>
-      <td>{{this.id}}</td>
-      <td>{{this.title}}</td>
-      <td>{{this.description}}</td>
-      <td>{{this.category}}</td>
-      <td>{{this.price}}</td>
-      <td>{{this.stock}}</td>
+      <td>{{_id}}</td>
+      <td>{{title}}</td>
+      <td>{{description}}</td>
+      <td>{{category}}</td>
+      <td>{{price}}</td>
+      <td>{{stock}}</td>
     </tr>
     {{/each}}
     {{/if}}
@@ -25,23 +25,23 @@
     {{#if productById}}
     {{#each productById}}
     <tr>
-      <td>{{this.id}}</td>
-      <td>{{this.title}}</td>
-      <td>{{this.description}}</td>
-      <td>{{this.category}}</td>
-      <td>{{this.price}}</td>
-      <td>{{this.stock}}</td>
+      <td>{{_id}}</td>
+      <td>{{title}}</td>
+      <td>{{description}}</td>
+      <td>{{category}}</td>
+      <td>{{price}}</td>
+      <td>{{stock}}</td>
     </tr>
     {{/each}}
     {{/if}}
     {{#each products}}
     <tr>
-      <td>{{this.id}}</td>
-      <td>{{this.title}}</td>
-      <td>{{this.description}}</td>
-      <td>{{this.category}}</td>
-      <td>{{this.price}}</td>
-      <td>{{this.stock}}</td>
+      <td>{{_id}}</td>
+      <td>{{title}}</td>
+      <td>{{description}}</td>
+      <td>{{category}}</td>
+      <td>{{price}}</td>
+      <td>{{stock}}</td>
     </tr>
     {{/each}}
   </table>

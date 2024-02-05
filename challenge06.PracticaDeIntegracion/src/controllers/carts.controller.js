@@ -8,10 +8,7 @@ const cartsController = Router()
 cartsController.get('/', async (req, res) => {
   try {
     const carts = await cartsService.getAll()
-    res.status(HTTP_RESPONSES.SUCCESS).json({ payload: { carts } })
-
-    // const carts = await cartManager.getCarts()
-    // return res.render('carts.handlebars', { carts, title: 'Challenge05: WebsocketsHandlebars', style: 'carts.css' })
+    res.status(HTTP_RESPONSES.SUCCESS).render('carts.handlebars', { carts, title: 'Challenge05: WebsocketsHandlebars', style: 'carts.css' })
   } catch (error) {
     res.status(HTTP_RESPONSES.INTERNAL_SERVER_ERROR).json({ error: error.message })
   }
@@ -20,16 +17,10 @@ cartsController.get('/', async (req, res) => {
 cartsController.get('/:cid', async (req, res) => {
   try {
     const { cid } = req.params
-    const carts = await cartsService.findOne(cid)
-
-    res.status(HTTP_RESPONSES.SUCCESS).json({ payload: { carts } })
-
-    // if (isNaN(cid)) return res.json({ error: 'The entered parameter is not a number' })
-    // if (cid < 1 || cid > carts.length) return res.json({ error: 'The entered parameter is not valid' })
-    // const cartById = await cartManager.getCartById(Number(cid))
-    // if (!cartById) return res.status(404).json({ error: 'Cart not found' });
-    // const productsInCart = cartById.products
-    // return res.render('carts.handlebars', { productsInCart, cid, title: 'Challenge05: WebsocketsHandlebars', style: 'carts.css' })
+    const cart = await cartsService.findOne(cid)
+    console.log(cart);
+    const productsInCart = cart.products
+    res.status(HTTP_RESPONSES.SUCCESS).render('carts.handlebars', { productsInCart, cid, title: 'Challenge05: WebsocketsHandlebars', style: 'carts.css' })
   } catch (error) {
     res.status(HTTP_RESPONSES.INTERNAL_SERVER_ERROR).json({ error: error.message })
   }
