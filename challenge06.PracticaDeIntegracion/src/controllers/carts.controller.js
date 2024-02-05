@@ -1,7 +1,6 @@
 import { Router } from "express";
 import cartsService from "../services/carts.service.js";
 import HTTP_RESPONSES from "../constants/http-responses.constant.js";
-// import cartManager from '../../DAO/managers/carts.manager.js';
 
 const cartsController = Router()
 
@@ -38,10 +37,9 @@ cartsController.post('/', async (req, res) => {
 
 cartsController.post('/:cid/products/:pid', async (req, res) => {
   try {
-    const { quantity } = req.body
     const { cid, pid } = req.params
-    const updatedCart = await cartsService.updateOne(cid, pid, quantity)
-    res.json({ payload: { updatedCart } })
+    const updatedCart = await cartsService.addProductToCart(cid, pid)
+    res.status(HTTP_RESPONSES.CREATED).json({ payload: { updatedCart } })
   }
   catch (error) {
     res.status(HTTP_RESPONSES.INTERNAL_SERVER_ERROR).json({ error: error.message })

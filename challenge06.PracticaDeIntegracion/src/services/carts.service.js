@@ -29,19 +29,10 @@ const findOne = async (cid) => {
   }
 }
 
-const updateOne = async (cid, productInfo) => {
+const addProductToCart = async (cid, pid) => {
   try {
-    const updatedProduct = await Cart.updateOne(cid, productInfo)
-    return updatedProduct
-  } catch (error) {
-    throw error
-  }
-}
-
-const deleteOne = async (pid) => {
-  try {
-    const deletedProduct = await Cart.deleteOne(pid)
-    return deletedProduct
+    const updatedCart = await Cart.addProductToCart(cid, pid)
+    return updatedCart
   } catch (error) {
     throw error
   }
@@ -51,6 +42,5 @@ export default {
   getAll,
   insertOne,
   findOne,
-  updateOne,
-  deleteOne
+  addProductToCart
 }
