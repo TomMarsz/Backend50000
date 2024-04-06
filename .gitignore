@@ -1,5 +1,6 @@
 # Files Ignored
 node_modules/
+Files/
 *package-lock.json
 *productscopy.json
 *.env
